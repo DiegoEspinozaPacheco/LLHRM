@@ -206,6 +206,6 @@ account default : gmail
 - Contributions are welcome via GitHub pull requests.
 - Licensed for free use and modification; no warranties provided.
 
-![Docker Pulls](https://img.shields.io/docker/pulls/DiegoEspinozaPacheco/llhrm)
+![Docker Pulls](https://img.shields.io/docker/pulls/diegoespinozapacheco/llhrm)
 
 ![License](https://img.shields.io/badge/license-MIT-green)
