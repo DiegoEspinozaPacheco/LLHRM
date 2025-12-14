@@ -75,6 +75,13 @@ Defaults are defined in the Dockerfile and can be overridden with `docker run -e
 | `MAX_RENOTIFICATIONS`  | Maximum re-alert attempts |
 | `CONTAINER_NAME`       | Optional override for container name in notifications |
 
+### Email service (msmtp)
+
+- **Before** running the container, you must configure msmtp to enable email notifications.
+- Use the examples provided in the examples/ folder as templates for Gmail, Office365, SES, Mailgun, or SendGrid.
+- Ensure the /etc/msmtprc file is correctly mounted or included in the image, and that credentials are valid.
+- Basic knowledge of SMTP configuration is required to set this up safely.
+
 ---
 
 ## 🔒 Security & Permissions
