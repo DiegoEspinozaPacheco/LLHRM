@@ -1,0 +1,13 @@
+Subject: [LLHRM] {{RESOURCE}} usage ALERT on {{CONTAINER_NAME}}
+
+Resource: {{RESOURCE}}
+Current usage: {{VALUE}}%
+Threshold: {{THRESHOLD}}%
+
+Status: ALERT
+Duration above threshold: {{DURATION}} seconds
+
+This alert was triggered after sustained threshold violation.
+
+Container: {{CONTAINER_NAME}}
+Timestamp: {{TIMESTAMP}}

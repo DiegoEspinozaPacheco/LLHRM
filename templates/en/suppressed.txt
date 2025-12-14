@@ -1,0 +1,13 @@
+Subject: [LLHRM] {{RESOURCE}} alerts suppressed on {{CONTAINER_NAME}}
+
+Resource: {{RESOURCE}}
+Current usage: {{VALUE}}%
+Threshold: {{THRESHOLD}}%
+
+Status: SUPPRESSED
+Maximum re-notifications reached.
+
+No further alerts will be sent until the resource recovers below threshold.
+
+Container: {{CONTAINER_NAME}}
+Timestamp: {{TIMESTAMP}}

@@ -1,0 +1,16 @@
+# Mailgun SMTP configuration
+defaults
+auth           on
+tls            on
+tls_trust_file /etc/ssl/certs/ca-certificates.crt
+logfile        /tmp/msmtp.log
+
+# Account for Mailgun
+account mailgun
+host smtp.mailgun.org
+port 587
+from postmaster@yourdomain.com
+user postmaster@yourdomain.com
+password SMTP_PASSWORD
+
+account default : mailgun

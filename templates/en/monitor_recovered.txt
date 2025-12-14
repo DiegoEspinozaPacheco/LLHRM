@@ -1,0 +1,11 @@
+Subject: [LLHRM] Monitor recovered – metrics available again
+
+The monitoring container has restored access to host metrics.
+
+Status: RECOVERED
+Recovered metrics: {{RECOVERED_METRICS}}
+
+Normal monitoring has resumed.
+
+Container: {{CONTAINER_NAME}}
+Timestamp: {{TIMESTAMP}}

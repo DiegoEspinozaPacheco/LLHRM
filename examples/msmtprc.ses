@@ -1,0 +1,16 @@
+# Amazon SES SMTP configuration
+defaults
+auth           on
+tls            on
+tls_trust_file /etc/ssl/certs/ca-certificates.crt
+logfile        /tmp/msmtp.log
+
+# Account for SES
+account ses
+host email-smtp.us-east-1.amazonaws.com
+port 587
+from verified_email@example.com
+user SMTP_USERNAME
+password SMTP_PASSWORD
+
+account default : ses

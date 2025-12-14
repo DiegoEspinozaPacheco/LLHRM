@@ -1,0 +1,16 @@
+# Office 365 SMTP configuration
+defaults
+auth           on
+tls            on
+tls_trust_file /etc/ssl/certs/ca-certificates.crt
+logfile        /tmp/msmtp.log
+
+# Account for Office 365
+account office365
+host smtp.office365.com
+port 587
+from your.email@company.com
+user your.email@company.com
+password APP_PASSWORD_OR_TOKEN
+
+account default : office365

@@ -1,0 +1,13 @@
+Subject: [LLHRM] {{RESOURCE}} recovered on {{CONTAINER_NAME}}
+
+Resource: {{RESOURCE}}
+Current usage: {{VALUE}}%
+Threshold: {{THRESHOLD}}%
+
+Status: RECOVERY
+Recovery duration: {{RECOVERY_DURATION}} seconds
+
+The resource has returned to normal levels.
+
+Container: {{CONTAINER_NAME}}
+Timestamp: {{TIMESTAMP}}

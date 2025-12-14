@@ -1,0 +1,16 @@
+# SendGrid SMTP configuration
+defaults
+auth           on
+tls            on
+tls_trust_file /etc/ssl/certs/ca-certificates.crt
+logfile        /tmp/msmtp.log
+
+# Account for SendGrid
+account sendgrid
+host smtp.sendgrid.net
+port 587
+from your_email@example.com
+user apikey
+password SENDGRID_API_KEY
+
+account default : sendgrid

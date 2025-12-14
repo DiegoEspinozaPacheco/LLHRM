@@ -1,0 +1,17 @@
+Subject: [LLHRM] Monitor degraded – unable to read host metrics
+
+The monitoring container is running but cannot read one or more host metrics.
+
+Status: DEGRADED
+Failed metrics: {{FAILED_METRICS}}
+
+This is NOT a host resource alert.
+It indicates a monitoring access or permission issue.
+
+Recommended checks:
+- Verify read-only bind mounts to /host/proc
+- Check container permissions
+- Run: docker inspect {{CONTAINER_NAME}}
+- Run: docker logs {{CONTAINER_NAME}}
+
+Timestamp: {{TIMESTAMP}}

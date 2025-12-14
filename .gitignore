@@ -1,0 +1,10 @@
+# Node/Docker/etc system files
+*.log
+*.tmp
+*.swp
+
+# Docker
+*.tar
+*.tgz
+docker-compose.override.yml
+docker-compose.override.yaml
