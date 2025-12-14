@@ -213,6 +213,8 @@ account default : gmail
 - Contributions are welcome via GitHub pull requests.
 - Licensed for free use and modification; no warranties provided.
 
+![GitHub release downloads](https://img.shields.io/github/downloads/DiegoEspinozaPacheco/LLHRM/total?color=blue&style=flat-square)
+
 ![Docker Pulls](https://img.shields.io/docker/pulls/diegoespinozapacheco/llhrm)
 
 ![License](https://img.shields.io/badge/license-MIT-green)
