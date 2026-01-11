@@ -19,6 +19,9 @@ fail() {
 : "${RENOTIFY_INTERVAL:=900}"
 : "${MAX_RENOTIFICATIONS:=3}"
 : "${ALERT_LANG:=en}"
+: "${ALERT_TO:?ALERT_TO must be set}"  # mandatory
+: "${ALERT_CC:=}"
+: "${ALERT_BCC:=}"
 
 # ---- Validation ----
 is_int() {

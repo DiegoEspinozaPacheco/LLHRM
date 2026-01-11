@@ -23,6 +23,10 @@ EVENT="${EVENT:-}"
 
 [ -n "$ALERT_TO" ] || warn "ALERT_TO is empty – notifications will likely fail"
 
+# Ensure optional CC/BCC variables are always set
+ALERT_CC="${ALERT_CC:-}"
+ALERT_BCC="${ALERT_BCC:-}"
+
 TEMPLATE="$TEMPLATE_BASE/$LANG/${EVENT}.txt"
 
 # Fallback to English template
