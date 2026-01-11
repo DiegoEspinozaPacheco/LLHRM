@@ -9,8 +9,8 @@ logfile        /tmp/msmtp.log
 account gmail
 host smtp.gmail.com
 port 587
-from "you@example.com"
-user "you@example.com"
-password "APP_PASSWORD_HERE"
+from your.email@gmail.com
+user your.email@gmail.com
+password APP_PASSWORD_OR_TOKEN
 
 account default : gmail

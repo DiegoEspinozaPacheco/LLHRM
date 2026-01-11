@@ -21,36 +21,16 @@ RUN addgroup -S monitor && adduser -S monitor -G monitor
 
 WORKDIR /app
 
-# ---- Configuration variables ----
-# Default values for the container. You can either:
-# 1) Rebuild the image with updated defaults in this Dockerfile, or
-# 2) Override these defaults at runtime using `-e VARIABLE=value` with `docker run`
-# Thresholds are in percentages (%) and times in seconds.
-ENV ALERT_TO="" \
-    ALERT_CC="" \
-    ALERT_BCC="" \
-    ALERT_LANG="en" \
-    CPU_THRESHOLD=80 \
-    RAM_THRESHOLD=85 \
-    DISK_THRESHOLD=85 \
-    CHECK_INTERVAL=60 \
-    ALERT_AFTER=300 \
-    RECOVERY_AFTER=300 \
-    RENOTIFY_INTERVAL=300 \
-    MAX_RENOTIFICATIONS=3 \
-    CONTAINER_NAME="LLHRM"
-
 # ---- Copy scripts and templates ----
 COPY scripts/ /app/scripts/
 COPY entrypoint.sh /app/
 COPY templates/ /app/templates/
-COPY config/msmtprc /etc/msmtprc
 
 # ---- Permissions ----
 RUN chmod +x /app/*.sh /app/scripts/*.sh \
  && mkdir -p /app/state \
- && chown -R monitor:monitor /app \
- && chown monitor:monitor /etc/msmtprc \
+ && touch /etc/msmtprc \
+ && chown -R monitor:monitor /app /etc/msmtprc \
  && chmod 600 /etc/msmtprc
 
 USER monitor

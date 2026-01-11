@@ -1,0 +1,51 @@
+services:
+  # -------------------
+  # Prod profile (Default)
+  # -------------------
+  llhrm:
+    image: diegoespinozapacheco/llhrm:latest
+    container_name: llhrm
+    restart: unless-stopped
+
+    env_file:
+      - .env
+
+    volumes:
+      # Save persistent states of LLHRM in host filesystem
+      - llhrm-state:/app/state
+
+      # Email configuration (Bind the config file)
+      - ./config/msmtprc:/etc/msmtprc:ro
+
+      # Allow the container to read host metrics without modifying the file (:ro option)
+      - /proc:/host/proc:ro
+
+  # -------------------
+  # Dev profile
+  # -------------------
+  llhrm-dev:
+    profiles: ["dev"]
+    container_name: llhrm-dev
+    restart: unless-stopped
+
+    build:
+      context: .
+      dockerfile: dockerfile
+    env_file:
+      - .env
+
+    volumes:
+      # Local code mounted for "hot reloads"
+      - .:/app:cached
+
+      # Save persistent states of LLHRM in host filesystem
+      - llhrm-state:/app/state
+
+      # Email configuration (Bind the config file)
+      - ./config/msmtprc:/etc/msmtprc:ro
+
+      # Allow the container to read host metrics without modifying the file (:ro option)
+      - /proc:/host/proc:ro
+
+volumes:
+  llhrm-state:

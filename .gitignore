@@ -1,10 +1,10 @@
-# Node/Docker/etc system files
+# Environment variables
+*.env
+
+# SMTP credentials and others
+config/*
+!config/*.example
+
 *.log
 *.tmp
 *.swp
-
-# Docker
-*.tar
-*.tgz
-docker-compose.override.yml
-docker-compose.override.yaml
