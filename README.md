@@ -7,11 +7,12 @@ It monitors CPU, RAM, and disk usage, triggers alerts when thresholds are exceed
 ---
 ## ⚡ Scope
 
-- Monitor host resources (CPU, RAM, Disk) from within a container.
-- Generate alerts and recovery notifications via email.
+- Monitor host resources (CPU, RAM, Disk) from within a container using read only binds.
+- Generate + Send alerts and recovery notifications via email using msmtp.
 - Supports customizable thresholds, intervals, and re-notifications.
 - Lightweight Alpine-based Docker image.
 - Minimal privilege usage and easy deployment.
+- Supports both production and development profiles via Docker Compose (`prod` default, `dev` for hot reloads).
 
 ---
 ## 🖥️ Tested Environment
@@ -20,7 +21,7 @@ It monitors CPU, RAM, and disk usage, triggers alerts when thresholds are exceed
 - Works on any Linux system exposing `/proc/stat` and `/proc/meminfo`.  
 - Disk usage monitored via `df -P /`.  
 
-> Bind mounts provide the container read-only access to host `/proc` and persistent storage.
+> Bind mounts provide the LLHRM container read-only access to the host `/proc` directory and persistent storage if you want LLHRM to read last states after re-starting.
 > 
 ---
 ## 🛠️ Prerequisites
@@ -33,6 +34,9 @@ It monitors CPU, RAM, and disk usage, triggers alerts when thresholds are exceed
 ## 📂 Project Structure
 ```
 .
+├── README.md
+├── .env.example
+├── docker-compose.yml
 ├── dockerfile
 ├── entrypoint.sh
 ├── scripts/
@@ -47,9 +51,9 @@ It monitors CPU, RAM, and disk usage, triggers alerts when thresholds are exceed
 │       ├── monitor_degraded.txt
 │       └── monitor_recovered.txt
 ├── config/
-│   └── msmtprc        # Example msmtp configuration
+│   └── msmtprc.example
 ├── examples/
-│   └── msmtprc.*      # Gmail, Office365, SES, Mailgun, SendGrid examples
+│   └── msmtprc.*
 ```
 
 ---
@@ -57,7 +61,7 @@ It monitors CPU, RAM, and disk usage, triggers alerts when thresholds are exceed
 
 ### Environment Variables
 
-Defaults are defined in the Dockerfile and can be overridden with `docker run -e` flags:
+Defaults are defined in .env and can be modified, try not to change settings from the dockerfile or docker-compose.yml:
 
 | Variable               | Description |
 |------------------------|-------------|
@@ -75,12 +79,21 @@ Defaults are defined in the Dockerfile and can be overridden with `docker run -e
 | `MAX_RENOTIFICATIONS`  | Maximum re-alert attempts |
 | `CONTAINER_NAME`       | Optional override for container name in notifications |
 
+### Docker compose
+
+> Use `docker compose --profile dev up --build` for development with hot-reloads in case you want to modify this proyect.
+ 
+> Production runs with `docker compose up` (the default `prod` profile).
+
+
 ### Email service (msmtp)
 
 - **Before** running the container, you must configure msmtp to enable email notifications.
-- Use the examples provided in the examples/ folder as templates for Gmail, Office365, SES, Mailgun, or SendGrid.
-- Ensure the /etc/msmtprc file is correctly mounted or included in the image, and that credentials are valid.
+- Use the examples provided in the examples/ folder, there you will find templates for Gmail, Office365, SES, Mailgun, or SendGrid.
+- Ensure the ./config/msmtprc file is correctly mounted, and that the credentials/parameters are valid.
 - Basic knowledge of SMTP configuration is required to set this up safely.
+
+> ⚠️ Never commit your real credentials. Use `config/msmtprc` locally and ignore it via `.gitignore`.
 
 ---
 
@@ -127,7 +140,7 @@ docker run -d \
 
 - `--mount type=bind,src=/proc,dst=/host/proc,ro` gives read-only access to host stats.
 - `--mount type=volume,src=llhrm_state,dst=/app/state` persists monitor state and logs.
-> Environment variables override Dockerfile defaults.
+> Environment variables overrides defaults.
 
 ### Verify Environment Variables
 
@@ -141,7 +154,14 @@ This allows you to confirm that the container is using the intended thresholds, 
 
 Test the mailer without running the monitor:
 ```
-docker run --rm -e DRY_RUN=1 -e ALERT_TO="admin@example.com" llhrm
+
+docker run --rm  \
+  -e DRY_RUN=1 \
+  -e ALERT_TO="admin@example.com" \
+  --mount type=bind,src=/proc,dst=/host/proc,ro \
+  --mount type=bind,src="./config/msmtprc",dst=/etc/msmtprc,ro \
+  diegoespinozapacheco/llhrm
+
 ```
 - Sends a test alert email.
 - Useful to validate email configuration before production use.
